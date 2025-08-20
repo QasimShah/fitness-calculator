@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Health & Fitness Plan Calculator | Instant Meal & Workout Plan</title>
+    <meta name="description" content="Free health & fitness calculator that generates a personalized meal plan and exercise routine from your age, height, weight, activity, and goals. No signup – instant results.">
+    <meta name="keywords" content="BMR calculator, TDEE calculator, meal plan, workout plan, fitness calculator, keto, vegan, mediterranean, lose weight, gain muscle">
+    <meta property="og:title" content="Health & Fitness Plan Calculator" />
+    <meta property="og:description" content="Get a personalized meal plan and workout routine in seconds. No signup, no ads interruptions, just results." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:image" content="https://example.com/og-image.png" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Health & Fitness Plan Calculator",
+        "url": "https://example.com",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "description": "Instantly generate a personalized meal plan and workout routine based on your inputs.",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode">
+          🌙 Dark Mode
+        </button>
+        <h1 class="site-title">
+          
+          Health & Fitness Plan Calculator
+          <span class="title-icon heartbeat">💗</span>
+        </h1>
+        <p class="subtitle">Enter your details to get an instant personalized meal plan and workout routine.</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Ad Zone: Leaderboard 728x90 -->
+      <div class="ad-placeholder" aria-label="Advertisement placeholder" role="complementary">
+        <div class="ad-728x90">Your Ad Here 728×90</div>
+      </div>
+
+      <section class="card health-card">
+        
+        <form id="planner-form" novalidate>
+          <div class="form-grid-row">
+            <div class="form-field sm">
+              <label for="age">Age</label>
+              <input id="age" name="age" class="health-input" type="number" inputmode="numeric" min="16" max="80" required aria-describedby="age-help" placeholder="Enter your age" />
+              <small id="age-help" class="help-text">16–80</small>
+            </div>
+
+            <div class="form-field sm" role="group" aria-labelledby="gender-label">
+              <label id="gender-label">Gender</label>
+              <div class="custom-select" data-select="gender">
+                <button type="button" class="select-display" aria-expanded="false" aria-controls="gender-menu">
+                  <span id="gender-selected">Select gender</span>
+                  <span class="caret"></span>
+                </button>
+                <ul id="gender-menu" class="select-menu" role="listbox">
+                  <li class="option" data-value="male" role="option">Male</li>
+                  <li class="option" data-value="female" role="option">Female</li>
+                </ul>
+              </div>
+              <input type="hidden" id="gender-hidden" name="gender" value="" />
+            </div>
+
+            <div class="form-field sm" id="height-field">
+              <label for="height-value">Height</label>
+              <div class="unit-row">
+                <div id="height-inputs" class="height-inputs">
+                  <input id="height-value" name="heightValue" class="health-input" type="number" inputmode="decimal" placeholder="cm" min="100" max="250" required />
+                </div>
+                <div class="toggle height-toggle" role="group" aria-label="Height unit">
+                  <button type="button" class="toggle-btn is-active" data-height-unit="cm" aria-pressed="true">cm</button>
+                  <button type="button" class="toggle-btn" data-height-unit="ft" aria-pressed="false">ft/in</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid-row">
+            <div class="form-field compact sm" id="weight-field">
+              <label for="weight-value">Weight</label>
+              <div class="unit-row">
+                <input id="weight-value" name="weightValue" class="health-input" type="number" inputmode="decimal" placeholder="kg" min="35" max="250" required />
+                <div class="toggle" role="group" aria-label="Weight unit">
+                  <button type="button" class="toggle-btn is-active" data-weight-unit="kg" aria-pressed="true">kg</button>
+                  <button type="button" class="toggle-btn" data-weight-unit="lb" aria-pressed="false">lbs</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field sm">
+              <label for="activity">Activity Level</label>
+              <div class="custom-select" data-select="activity">
+                <button type="button" class="select-display" aria-expanded="false" aria-controls="activity-menu">
+                  <span id="activity-selected">Select activity level</span>
+                  <span class="caret"></span>
+                </button>
+                <ul id="activity-menu" class="select-menu" role="listbox">
+                  <li class="option" data-value="sedentary" role="option">Sedentary (little or no exercise)</li>
+                  <li class="option" data-value="light" role="option">Light (1–3 days/week)</li>
+                  <li class="option" data-value="moderate" role="option">Moderate (3–5 days/week)</li>
+                  <li class="option" data-value="active" role="option">Active (6–7 days/week)</li>
+                  <li class="option" data-value="very_active" role="option">Very Active (2x/day or intense)</li>
+                </ul>
+              </div>
+              <input type="hidden" id="activity" name="activity" value="" />
+            </div>
+
+            <div class="form-field sm" id="goal-field">
+              <label for="goal">Goal</label>
+              <div class="custom-select" data-select="goal">
+                <button type="button" class="select-display" aria-expanded="false" aria-controls="goal-menu">
+                  <span id="goal-selected">Select your goal</span>
+                  <span class="caret"></span>
+                </button>
+                <ul id="goal-menu" class="select-menu" role="listbox">
+                  <li class="option" data-value="lose_weight" role="option">Lose Weight</li>
+                  <li class="option" data-value="gain_muscle" role="option">Gain Muscle</li>
+                  <li class="option" data-value="tone_up" role="option">Tone Up</li>
+                  <li class="option" data-value="bulk_up" role="option">Bulk Up</li>
+                </ul>
+              </div>
+              <input type="hidden" id="goal" name="goal" value="" />
+            </div>
+          </div>
+
+          <div class="form-grid-row">
+            <div class="form-field sm" id="diet-field">
+              <label for="diet">Diet Preference</label>
+              <div class="custom-select" data-select="diet">
+                <button type="button" class="select-display" aria-expanded="false" aria-controls="diet-menu">
+                  <span id="diet-selected">Select diet</span>
+                  <span class="caret"></span>
+                </button>
+                <ul id="diet-menu" class="select-menu" role="listbox">
+                  <li class="option" data-value="regular" role="option">Regular</li>
+                  <li class="option" data-value="vegetarian" role="option">Vegetarian</li>
+                  <li class="option" data-value="vegan" role="option">Vegan</li>
+                  <li class="option" data-value="keto" role="option">Keto</li>
+                  <li class="option" data-value="mediterranean" role="option">Mediterranean</li>
+                </ul>
+              </div>
+              <input type="hidden" id="diet" name="diet" value="" />
+            </div>
+            
+            <div class="form-field sm button-field">
+              <label>&nbsp;</label>
+              <button id="generate-btn" class="btn primary" type="submit">
+                <span class="btn-icon">📅</span>
+                Generate My Plan
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+
+
+      <section id="results" class="results results-section card" aria-live="polite" hidden>
+        <div class="results-header">
+          <h2 class="section-title">Your Personalized Plan</h2>
+          <button id="change-plan-btn" class="btn secondary change-plan-btn" type="button">
+            <span class="btn-icon">✏️</span>
+            Change Your Plan
+          </button>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><span class="kpi-label">Daily Calories</span><span id="kpi-calories" class="kpi-value">—</span></div>
+          <div class="kpi"><span class="kpi-label">Protein</span><span id="kpi-protein" class="kpi-value">—</span></div>
+          <div class="kpi"><span class="kpi-label">Carbs</span><span id="kpi-carbs" class="kpi-value">—</span></div>
+          <div class="kpi"><span class="kpi-label">Fat</span><span id="kpi-fat" class="kpi-value">—</span></div>
+        </div>
+
+        <div class="results-grid">
+          <div class="column">
+            <div id="meal-plan-results" style="display: none;">
+              <h3>Your 7-Day Meal Plan</h3>
+              <p class="meal-plan-legend">Complete weekly meal plan - Each day shows one balanced meal per category</p>
+              <div id="weekly-meal-container"></div>
+            </div>
+          </div>
+          <div class="column">
+            <h3 class="subsection-title">Workout Plan</h3>
+            <div id="workout-plan" class="plan-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="loading" class="loading" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="sr-only">Calculating your plan…</span>
+    </div>
+
+    <footer class="site-footer container">
+      <small>For educational purposes only. Consult a professional for medical advice.</small>
+    </footer>
+
+    <script src="scripts/calculator.js" defer></script>
+    <script src="scripts/meals.js" defer></script>
+    <script src="scripts/exercises.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </body>
+  </html>
+
