@@ -42,9 +42,27 @@
     </header>
 
     <main class="container">
-      <!-- Ad Zone: Leaderboard 728x90 -->
-      <div class="ad-placeholder" aria-label="Advertisement placeholder" role="complementary">
-        <div class="ad-728x90">Your Ad Here 728×90</div>
+      <!-- Responsive Ad Banner -->
+      <div class="responsive-ad-container">
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-content">
+          <!-- Google AdSense code will go here -->
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXX"
+               data-ad-slot="XXXXXXXXX"
+               data-ad-format="rectangle"
+               data-full-width-responsive="false"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+          <!-- Fallback placeholder when ads don't load -->
+          <div class="ad-fallback">
+            <span>Ad Space - 728×90</span>
+            <small>Your advertisement will appear here</small>
+          </div>
+        </div>
       </div>
 
       <section class="card health-card">

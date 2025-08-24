@@ -1,4 +1,16 @@
 (function(){
+  // Ad initialization function
+  function initializeAds() {
+    // Check if AdSense is loaded
+    if (typeof adsbygoogle !== 'undefined') {
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.log('AdSense loading issue:', e);
+      }
+    }
+  }
+
   const form = document.getElementById('planner-form');
   const heightInputs = document.getElementById('height-inputs');
   const heightToggleBtns = Array.from(document.querySelectorAll('[data-height-unit]'));
@@ -24,7 +36,11 @@
 
   // Ensure spinner is hidden on initial load regardless of caching/state
   try { showLoading(false); } catch(_){}
-  document.addEventListener('DOMContentLoaded', function(){ try { showLoading(false); } catch(_){} });
+  document.addEventListener('DOMContentLoaded', function(){ 
+    try { showLoading(false); } catch(_){}
+    // Initialize ads when page loads
+    initializeAds();
+  });
   window.addEventListener('load', function(){ try { showLoading(false); } catch(_){} });
 
   // Dark mode toggle functionality
@@ -171,6 +187,9 @@
     requestAnimationFrame(()=>{
       el.style.opacity = 1;
     });
+    
+    // Ensure ads are loaded when results are shown
+    setTimeout(initializeAds, 500);
   }
 
   form.addEventListener('submit', (e)=>{
