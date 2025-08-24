@@ -33,9 +33,7 @@
           🌙 Dark Mode
         </button>
         <h1 class="site-title">
-          
-          Health & Fitness Plan Calculator
-          <span class="title-icon heartbeat">💗</span>
+          Plan Your Calories
         </h1>
         <p class="subtitle">Enter your details to get an instant personalized meal plan and workout routine.</p>
       </div>
@@ -55,7 +53,16 @@
                data-ad-format="rectangle"
                data-full-width-responsive="false"></ins>
           <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            // Wait for page to load before initializing ads
+            window.addEventListener('load', function() {
+              setTimeout(() => {
+                try {
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {
+                  console.log('AdSense not ready yet');
+                }
+              }, 1000);
+            });
           </script>
           <!-- Fallback placeholder when ads don't load -->
           <div class="ad-fallback">
@@ -71,8 +78,7 @@
           <div class="form-grid-row">
             <div class="form-field sm">
               <label for="age">Age</label>
-              <input id="age" name="age" class="health-input" type="number" inputmode="numeric" min="16" max="80" required aria-describedby="age-help" placeholder="Enter your age" />
-              <small id="age-help" class="help-text">16–80</small>
+              <input id="age" name="age" class="health-input" type="number" inputmode="numeric" min="16" max="80" required placeholder="Enter your age" />
             </div>
 
             <div class="form-field sm" role="group" aria-labelledby="gender-label">
@@ -94,7 +100,7 @@
               <label for="height-value">Height</label>
               <div class="unit-row">
                 <div id="height-inputs" class="height-inputs">
-                  <input id="height-value" name="heightValue" class="health-input" type="number" inputmode="decimal" placeholder="cm" min="100" max="250" required />
+                  <input id="height-value" name="heightValue" class="health-input" type="number" inputmode="decimal" placeholder="cm" min="120" max="220" required />
                 </div>
                 <div class="toggle height-toggle" role="group" aria-label="Height unit">
                   <button type="button" class="toggle-btn is-active" data-height-unit="cm" aria-pressed="true">cm</button>
@@ -108,7 +114,7 @@
             <div class="form-field compact sm" id="weight-field">
               <label for="weight-value">Weight</label>
               <div class="unit-row">
-                <input id="weight-value" name="weightValue" class="health-input" type="number" inputmode="decimal" placeholder="kg" min="35" max="250" required />
+                <input id="weight-value" name="weightValue" class="health-input" type="number" inputmode="decimal" placeholder="kg" min="30" max="200" required />
                 <div class="toggle" role="group" aria-label="Weight unit">
                   <button type="button" class="toggle-btn is-active" data-weight-unit="kg" aria-pressed="true">kg</button>
                   <button type="button" class="toggle-btn" data-weight-unit="lb" aria-pressed="false">lbs</button>

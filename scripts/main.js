@@ -40,6 +40,9 @@
     try { showLoading(false); } catch(_){}
     // Initialize ads when page loads
     initializeAds();
+    
+    // Initialize real-time validation
+    initializeRealTimeValidation();
   });
   window.addEventListener('load', function(){ try { showLoading(false); } catch(_){} });
 
@@ -83,8 +86,8 @@
       cm.name = 'heightValue';
       cm.type = 'number';
       cm.placeholder = 'cm';
-      cm.min = '100';
-      cm.max = '250';
+      cm.min = '120';
+      cm.max = '220';
       cm.required = true;
       cm.inputMode = 'decimal';
       heightInputs.appendChild(cm);
@@ -94,8 +97,8 @@
       ft.name = 'heightFt';
       ft.type = 'number';
       ft.placeholder = 'ft';
-      ft.min = '3';
-      ft.max = '8';
+      ft.min = '4';
+      ft.max = '7';
       ft.required = true;
       ft.inputMode = 'numeric';
 
@@ -143,33 +146,276 @@
     return Math.round(v * 0.453592 * 10) / 10;
   }
 
+  // Enhanced validation functions with specific error messages
+  function validateAge() {
+    const ageInput = document.getElementById('age');
+    const age = Number(ageInput.value || 0);
+    const isValid = !Number.isNaN(age) && age >= 16 && age <= 80;
+    
+    if (isValid) {
+      clearFieldError(ageInput);
+    } else {
+      showFieldError(ageInput, 'Age must be between 16 and 80');
+    }
+    
+    return isValid;
+  }
+
+  function validateHeight() {
+    const heightInputs = document.getElementById('height-inputs');
+    const currentHeightInput = heightInputs.querySelector('input');
+    
+    // Check if height input exists
+    if (!currentHeightInput) {
+      return false;
+    }
+    
+    const heightCm = cmFromHeight();
+    const isValid = heightCm && heightCm >= 120 && heightCm <= 220;
+    
+    if (isValid) {
+      clearFieldError(currentHeightInput);
+    } else {
+      showFieldError(currentHeightInput, 'Height must be between 120cm and 220cm (4ft-7ft)');
+    }
+    
+    return isValid;
+  }
+
+  function validateWeight() {
+    const weightInput = document.getElementById('weight-value');
+    const weightKg = kgFromWeight();
+    const isValid = weightKg && weightKg >= 30 && weightKg <= 200;
+    
+    if (isValid) {
+      clearFieldError(weightInput);
+    } else {
+      showFieldError(weightInput, 'Weight must be between 30kg and 200kg (66lbs-441lbs)');
+    }
+    
+    return isValid;
+  }
+
+  function validateRequired(fieldId, fieldName) {
+    const field = document.getElementById(fieldId);
+    const value = field.value;
+    const isValid = value && value.trim() !== '';
+    
+    if (isValid) {
+      clearFieldError(field);
+    } else {
+      showFieldError(field, `${fieldName} is required`);
+    }
+    
+    return isValid;
+  }
+
+  function showFieldError(element, message) {
+    // Remove existing error
+    clearFieldError(element);
+    
+    // Add error styling
+    element.classList.add('field-error');
+    
+    // Create error message
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'field-error-message';
+    errorDiv.textContent = message;
+    errorDiv.setAttribute('role', 'alert');
+    
+    // Handle height and weight fields differently (they have toggle buttons)
+    if (element.id === 'height-value' || element.id === 'height-ft' || element.id === 'height-in') {
+      // For height: insert after the unit-row (which contains input + toggle buttons)
+      const unitRow = element.closest('.unit-row');
+      if (unitRow && unitRow.parentNode) {
+        unitRow.parentNode.insertBefore(errorDiv, unitRow.nextSibling);
+      } else {
+        element.parentNode.appendChild(errorDiv);
+      }
+    } else if (element.id === 'weight-value') {
+      // For weight: insert after the unit-row (which contains input + toggle buttons)
+      const unitRow = element.closest('.unit-row');
+      if (unitRow && unitRow.parentNode) {
+        unitRow.parentNode.insertBefore(errorDiv, unitRow.nextSibling);
+      } else {
+        element.parentNode.appendChild(errorDiv);
+      }
+    } else if (element.classList.contains('select-display')) {
+      // For custom select buttons: insert after the <ul> tag (dropdown menu)
+      const customSelect = element.closest('.custom-select');
+      if (customSelect) {
+        const ulElement = customSelect.querySelector('ul');
+        if (ulElement && ulElement.parentNode) {
+          ulElement.parentNode.insertBefore(errorDiv, ulElement.nextSibling);
+        } else {
+          customSelect.appendChild(errorDiv);
+        }
+      } else {
+        element.parentNode.appendChild(errorDiv);
+      }
+    } else if (element.classList.contains('health-input')) {
+      // For regular input fields (like age): insert directly after the input element
+      element.parentNode.insertBefore(errorDiv, element.nextSibling);
+    } else {
+      // For any other elements: insert after the element
+      element.parentNode.insertBefore(errorDiv, element.nextSibling);
+    }
+  }
+
+  function clearFieldError(element) {
+    element.classList.remove('field-error');
+    
+    // Handle height and weight fields differently (they have toggle buttons)
+    if (element.id === 'height-value' || element.id === 'height-ft' || element.id === 'height-in') {
+      // For height: look for error after the unit-row
+      const unitRow = element.closest('.unit-row');
+      if (unitRow && unitRow.nextSibling && 
+          unitRow.nextSibling.classList && 
+          unitRow.nextSibling.classList.contains('field-error-message')) {
+        unitRow.nextSibling.remove();
+      }
+    } else if (element.id === 'weight-value') {
+      // For weight: look for error after the unit-row
+      const unitRow = element.closest('.unit-row');
+      if (unitRow && unitRow.nextSibling && 
+          unitRow.nextSibling.classList && 
+          unitRow.nextSibling.classList.contains('field-error-message')) {
+        unitRow.nextSibling.remove();
+      }
+    } else if (element.classList.contains('select-display')) {
+      // For custom select buttons: look for error after the <ul> tag (dropdown menu)
+      const customSelect = element.closest('.custom-select');
+      if (customSelect) {
+        const ulElement = customSelect.querySelector('ul');
+        if (ulElement && ulElement.nextSibling && 
+            ulElement.nextSibling.classList && 
+            ulElement.nextSibling.classList.contains('field-error-message')) {
+          ulElement.nextSibling.remove();
+        }
+      }
+    } else if (element.classList.contains('health-input')) {
+      // For regular input fields (like age): look for error directly after the input element
+      if (element.nextSibling && 
+          element.nextSibling.classList && 
+          element.nextSibling.classList.contains('field-error-message')) {
+        element.nextSibling.remove();
+      }
+    } else {
+      // For any other elements: look for error after the element
+      if (element.nextSibling && 
+          element.nextSibling.classList && 
+          element.nextSibling.classList.contains('field-error-message')) {
+        element.nextSibling.remove();
+      }
+    }
+  }
+
+  function initializeRealTimeValidation() {
+    // Age validation on blur only (not on every keystroke)
+    const ageInput = document.getElementById('age');
+    if (ageInput) {
+      ageInput.addEventListener('blur', validateAge);
+    }
+    
+    // Height validation on blur only (not on every keystroke)
+    const heightInput = document.getElementById('height-value');
+    if (heightInput) {
+      heightInput.addEventListener('blur', validateHeight);
+    }
+    
+    // Also validate when height inputs are dynamically created
+    const heightInputs = document.getElementById('height-inputs');
+    if (heightInputs) {
+      // Use MutationObserver to watch for dynamically added height inputs
+      const observer = new MutationObserver(() => {
+        const currentHeightInput = heightInputs.querySelector('input');
+        if (currentHeightInput) {
+          // Remove existing listeners to prevent duplicates
+          currentHeightInput.removeEventListener('blur', validateHeight);
+          // Add new listeners
+          currentHeightInput.addEventListener('blur', validateHeight);
+        }
+      });
+      observer.observe(heightInputs, { childList: true });
+    }
+    
+    // Weight validation on blur only (not on every keystroke)
+    const weightInput = document.getElementById('weight-value');
+    if (weightInput) {
+      weightInput.addEventListener('blur', validateWeight);
+    }
+    
+    // Height toggle - no validation needed
+    const heightToggleBtns = document.querySelectorAll('[data-height-unit]');
+    heightToggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Clear any existing height errors when toggling
+        setTimeout(() => {
+          const currentHeightInput = document.getElementById('height-inputs').querySelector('input');
+          if (currentHeightInput) {
+            clearFieldError(currentHeightInput);
+          }
+        }, 100);
+      });
+    });
+    
+    // Weight toggle - no validation needed
+    const weightToggleBtns = document.querySelectorAll('[data-weight-unit]');
+    weightToggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Clear any existing weight errors when toggling
+        setTimeout(() => {
+          const weightInput = document.getElementById('weight-value');
+          if (weightInput) {
+            clearFieldError(weightInput);
+          }
+        }, 100);
+      });
+    });
+  }
+
   function validate(){
-    const age = Number(document.getElementById('age').value || 0);
-    if (Number.isNaN(age) || age < 16 || age > 80) return false;
+    const ageValid = validateAge();
+    const heightValid = validateHeight();
+    const weightValid = validateWeight();
     
     const genderHidden = document.getElementById('gender-hidden');
     const gender = genderHidden ? genderHidden.value : '';
-    if (!gender) return false;
-
-    const heightCm = cmFromHeight();
-    if (!heightCm || heightCm < 100 || heightCm > 250) return false;
-
-    const weightKg = kgFromWeight();
-    if (!weightKg || weightKg < 35 || weightKg > 250) return false;
+    const genderValid = gender && gender.trim() !== '';
+    if (!genderValid) {
+      // Target the custom select display button for red border
+      const genderSelect = document.querySelector('[data-select="gender"] .select-display');
+      showFieldError(genderSelect, 'Gender selection is required');
+    }
 
     // Validate activity level selection
     const activity = document.getElementById('activity').value;
-    if (!activity) return false;
+    const activityValid = activity && activity.trim() !== '';
+    if (!activityValid) {
+      // Target the custom select display button for red border
+      const activitySelect = document.querySelector('[data-select="activity"] .select-display');
+      showFieldError(activitySelect, 'Activity level selection is required');
+    }
 
     // Validate goal selection
     const goal = document.getElementById('goal').value;
-    if (!goal) return false;
+    const goalValid = goal && goal.trim() !== '';
+    if (!goalValid) {
+      // Target the custom select display button for red border
+      const goalSelect = document.querySelector('[data-select="goal"] .select-display');
+      showFieldError(goalSelect, 'Goal selection is required');
+    }
 
     // Validate diet preference selection
     const diet = document.getElementById('diet').value;
-    if (!diet) return false;
+    const dietValid = diet && diet.trim() !== '';
+    if (!dietValid) {
+      // Target the custom select display button for red border
+      const dietSelect = document.querySelector('[data-select="diet"] .select-display');
+      showFieldError(dietSelect, 'Diet preference selection is required');
+    }
 
-    return true;
+    return ageValid && heightValid && weightValid && genderValid && activityValid && goalValid && dietValid;
   }
 
   function showLoading(show){
@@ -194,8 +440,21 @@
 
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
+    
+    // Clear any existing errors first
+    document.querySelectorAll('.field-error-message').forEach(errorMsg => {
+      errorMsg.remove();
+    });
+    document.querySelectorAll('.field-error').forEach(field => {
+      field.classList.remove('field-error');
+    });
+    
     if (!validate()){
-      alert('Please complete the form with valid values.');
+      // Scroll to first error
+      const firstError = document.querySelector('.field-error');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
@@ -361,11 +620,11 @@
         bodyPartSection.className = 'workout body-part-section';
         bodyPartSection.innerHTML = `
           <h4>${bodyPartNames[bodyPart] || bodyPart.charAt(0).toUpperCase() + bodyPart.slice(1)}</h4>
-          <ul class="list">
+      <ul class="list">
             ${exercisesByBodyPart[bodyPart].map(ex => 
               `<li>${ex.name} — ${ex.sets}×${ex.reps}, Rest ${ex.rest} <span class="meta">(${ex.equipment}; ${ex.form})</span></li>`
             ).join('')}
-          </ul>
+      </ul>
         `;
         workoutPlanEl.appendChild(bodyPartSection);
       }
