@@ -137,7 +137,7 @@ input:focus, select:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(
 .responsive-ad-container {
   width: 100%;
   max-width: 728px;
-  min-height: 90px;
+  max-height: 90px;
   margin: 20px auto;
   padding: 0;
   background: var(--bg);
@@ -187,7 +187,7 @@ input:focus, select:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(
 @media (min-width: 769px) {
   .responsive-ad-container {
     max-width: 728px;
-    min-height: 90px;
+    max-height: 90px;
   }
   
   .ad-content { min-height: 90px; }
