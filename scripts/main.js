@@ -1,8 +1,4 @@
 (function(){
-  // Ad initialization function (no-op, inline banner handles its own loading)
-  function initializeAds() {
-    // intentionally left blank to prevent duplicate pushes
-  }
 
   const form = document.getElementById('planner-form');
   const heightInputs = document.getElementById('height-inputs');
@@ -31,8 +27,6 @@
   try { showLoading(false); } catch(_){}
   document.addEventListener('DOMContentLoaded', function(){ 
     try { showLoading(false); } catch(_){}
-    // Initialize ads when page loads
-    initializeAds();
     
     // Initialize real-time validation
     initializeRealTimeValidation();
@@ -426,8 +420,6 @@
     requestAnimationFrame(()=>{
       el.style.opacity = 1;
     });
-    
-    // Ads are initialized inline; avoid duplicate pushes here
   }
 
   form.addEventListener('submit', (e)=>{

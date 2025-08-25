@@ -190,9 +190,7 @@ input:focus, select:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(
     min-height: 90px;
   }
   
-  .ad-content {
-    min-height: 90px;
-  }
+  .ad-content { min-height: 90px; }
 }
 
 /* Tablet styles */
@@ -202,22 +200,18 @@ input:focus, select:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(
     min-height: 60px;
   }
   
-  .ad-content {
-    min-height: 60px;
-  }
+  .ad-content { min-height: 60px; }
 }
 
 /* Mobile styles */
 @media (max-width: 480px) {
   .responsive-ad-container {
     max-width: 320px;
-    min-height: 30px; /* Reduced from 50px to 30px */
+    min-height: 30px; /* compact mobile height */
     margin: 10px auto; /* Reduced from 15px to 10px */
   }
   
-  .ad-content {
-    min-height: 30px; /* Reduced from 50px to 30px */
-  }
+  .ad-content { }
   
   .ad-label {
     font-size: 7px; /* Smaller label for compact space */
