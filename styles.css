@@ -318,6 +318,16 @@ input:focus, select:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(
 @keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.2)}28%{transform:scale(1)}42%{transform:scale(1.2)}70%{transform:scale(1)}}
 
 .site-footer{opacity:.8;margin:16px auto 40px;color:#0f172a}
+.footer-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-main{flex:1}
+.footer-links{display:flex;gap:16px;align-items:center}
+.footer-links a{color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;transition:color 0.3s ease}
+.footer-links a:hover{color:var(--accent-2);text-decoration:underline}
+
+@media (max-width:599px){
+  .footer-content{flex-direction:column;text-align:center;gap:12px}
+  .footer-links{justify-content:center}
+}
 
 /* Weekly meal plan styles */
 .weekly-legend{ text-align:center; margin-bottom:16px; padding:16px; background:#f8f9fa; border-radius:10px; border:1px solid #e2e8f0 }
