@@ -1,14 +1,7 @@
 (function(){
-  // Ad initialization function
+  // Ad initialization function (no-op, inline banner handles its own loading)
   function initializeAds() {
-    // Check if AdSense is loaded
-    if (typeof adsbygoogle !== 'undefined') {
-      try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        console.log('AdSense loading issue:', e);
-      }
-    }
+    // intentionally left blank to prevent duplicate pushes
   }
 
   const form = document.getElementById('planner-form');
@@ -434,8 +427,7 @@
       el.style.opacity = 1;
     });
     
-    // Ensure ads are loaded when results are shown
-    setTimeout(initializeAds, 500);
+    // Ads are initialized inline; avoid duplicate pushes here
   }
 
   form.addEventListener('submit', (e)=>{
