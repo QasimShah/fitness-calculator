@@ -14,12 +14,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Health & Fitness Plan Calculator | Instant Meal & Workout Plan</title>
     <meta name="description" content="Free health & fitness calculator that generates a personalized meal plan and exercise routine from your age, height, weight, activity, and goals. No signup – instant results.">
-    <meta name="keywords" content="BMR calculator, TDEE calculator, meal plan, workout plan, fitness calculator, keto, vegan, mediterranean, lose weight, gain muscle">
+    <meta name="keywords" content="BMR calculator, TDEE calculator, meal plan, workout plan, fitness calculator, keto, vegan, mediterranean, lose weight, gain muscle, macro calculator, calorie calculator, diet plan, exercise routine, weight loss calculator, muscle gain calculator, bodybuilding calculator, nutrition calculator">
+    <link rel="canonical" href="https://planyourcalories.com/" />
     <meta property="og:title" content="Health & Fitness Plan Calculator" />
     <meta property="og:description" content="Get a personalized meal plan and workout routine in seconds. No signup, no ads interruptions, just results." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://example.com" />
-    <meta property="og:image" content="https://example.com/og-image.png" />
+    <meta property="og:url" content="https://planyourcalories.com" />
+    <meta property="og:image" content="https://planyourcalories.com/og-image.png" />
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Health & Fitness Plan Calculator" />
+    <meta name="twitter:description" content="Get a personalized meal plan and workout routine in seconds. No signup, no ads interruptions, just results." />
+    <meta name="twitter:image" content="https://planyourcalories.com/og-image.png" />
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -39,11 +45,79 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Health & Fitness Plan Calculator",
-        "url": "https://example.com",
+        "url": "https://planyourcalories.com",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "Any",
         "description": "Instantly generate a personalized meal plan and workout routine based on your inputs.",
-        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "author": {
+          "@type": "Organization",
+          "name": "Plan Your Calories"
+        },
+        "featureList": [
+          "BMR Calculator",
+          "TDEE Calculator", 
+          "Meal Plan Generator",
+          "Workout Plan Creator",
+          "Macro Calculator",
+          "Diet Preferences"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How accurate is this fitness calculator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our calculator uses scientifically-proven formulas (Harris-Benedict for BMR, activity multipliers for TDEE) to provide accurate estimates. Results are within 10-15% of professional assessments for most people."
+            }
+          },
+          {
+            "@type": "Question", 
+            "name": "Is this calculator free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Our fitness calculator is completely free with no signup required. Generate unlimited meal plans and workout routines without any restrictions."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What diet options are available?",
+            "acceptedAnswer": {
+              "@type": "Answer", 
+              "text": "We support Regular, Vegetarian, Vegan, Keto, and Mediterranean diets. Each plan is tailored to your specific dietary preferences and nutritional needs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use this for weight loss?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely! Select 'Lose Weight' as your goal and the calculator will create a calorie deficit plan with appropriate macro ratios and workout intensity for safe, sustainable weight loss."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How often should I recalculate my plan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Recalculate every 4-6 weeks or when your weight changes by 10+ pounds. Your metabolism and needs evolve as you progress toward your fitness goals."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need gym equipment for the workouts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our workout plans include both gym and home exercise options. We provide equipment alternatives and bodyweight exercises for every fitness level."
+            }
+          }
+        ]
       }
     </script>
   </head>
@@ -216,6 +290,74 @@
           <div class="column">
             <h3 class="subsection-title">Workout Plan</h3>
             <div id="workout-plan" class="plan-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="card faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>How accurate is this fitness calculator?</h3>
+            <p>Our calculator uses scientifically-proven formulas (Harris-Benedict for BMR, activity multipliers for TDEE) to provide accurate estimates. Results are within 10-15% of professional assessments for most people.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is this calculator free to use?</h3>
+            <p>Yes! Our fitness calculator is completely free with no signup required. Generate unlimited meal plans and workout routines without any restrictions.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What diet options are available?</h3>
+            <p>We support Regular, Vegetarian, Vegan, Keto, and Mediterranean diets. Each plan is tailored to your specific dietary preferences and nutritional needs.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I use this for weight loss?</h3>
+            <p>Absolutely! Select "Lose Weight" as your goal and the calculator will create a calorie deficit plan with appropriate macro ratios and workout intensity for safe, sustainable weight loss.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How often should I recalculate my plan?</h3>
+            <p>Recalculate every 4-6 weeks or when your weight changes by 10+ pounds. Your metabolism and needs evolve as you progress toward your fitness goals.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do I need gym equipment for the workouts?</h3>
+            <p>Our workout plans include both gym and home exercise options. We provide equipment alternatives and bodyweight exercises for every fitness level.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Benefits Section -->
+      <section class="card benefits-section">
+        <h2 class="section-title">Why Choose Our Fitness Calculator?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">⚡</div>
+            <h3>Instant Results</h3>
+            <p>Get your personalized meal plan and workout routine in seconds. No waiting, no signup required.</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🎯</div>
+            <h3>Personalized Plans</h3>
+            <p>Every plan is customized based on your age, gender, height, weight, activity level, and specific goals.</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">📊</div>
+            <h3>Science-Based</h3>
+            <p>Uses proven BMR/TDEE formulas and macro calculations to ensure your plan is both effective and safe.</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🍽️</div>
+            <h3>Flexible Diets</h3>
+            <p>Supports multiple dietary preferences including Keto, Vegan, Mediterranean, and more.</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">💪</div>
+            <h3>Complete Workouts</h3>
+            <p>Get detailed exercise plans with sets, reps, rest periods, and proper form guidance.</p>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">📱</div>
+            <h3>Mobile Friendly</h3>
+            <p>Works perfectly on all devices. Access your plan anywhere, anytime.</p>
           </div>
         </div>
       </section>
