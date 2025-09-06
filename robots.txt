@@ -6,3 +6,4 @@ Sitemap: https://planyourcalories.com/sitemap.xml
 
 # Allow all search engines to crawl all content
 # No restrictions needed for this fitness calculator
+google-site-verification: google1f88d20e2beb058e.html
