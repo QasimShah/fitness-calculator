@@ -83,6 +83,108 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:
 .hamburger{width:25px;height:3px;background:#ffffff;border-radius:2px;transition:all 0.3s ease}
 .mobile-menu-toggle:hover .hamburger{background:rgba(255,255,255,0.8)}
 
+/* Show mobile menu toggle on mobile */
+@media (max-width:768px){
+  .mobile-menu-toggle{display:flex}
+}
+
+/* Article Container Styles */
+.article-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.article-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.article-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.article-meta {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.article-content {
+  font-size: 1.1rem;
+}
+
+.article-content h2 {
+  font-size: 1.8rem;
+  margin: 30px 0 15px 0;
+  color: var(--text);
+}
+
+.article-content h3 {
+  font-size: 1.4rem;
+  margin: 25px 0 10px 0;
+  color: var(--text);
+}
+
+.article-content p {
+  margin-bottom: 15px;
+}
+
+.article-content ul, .article-content ol {
+  margin: 15px 0;
+  padding-left: 25px;
+}
+
+.article-content li {
+  margin-bottom: 8px;
+}
+
+.cta-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 30px 0;
+  text-align: center;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.cta-button:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Mobile responsiveness for article content */
+@media (max-width: 768px) {
+  .article-container {
+    padding: 15px;
+  }
+  
+  .article-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .article-content h2 {
+    font-size: 1.4rem;
+  }
+}
+
 /* Mobile Navigation */
 @media (max-width:1024px){
   .main-navigation{flex:1;justify-content:flex-end}
@@ -102,7 +204,6 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:
   .dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;background:rgba(255,255,255,0.1);border:none;margin:5px 0 0 20px;padding:5px 0}
   .dropdown-link{color:rgba(255,255,255,0.9);padding:8px 20px;margin:0}
   .dropdown-link:hover{background:rgba(255,255,255,0.2);color:#ffffff}
-  .mobile-menu-toggle{display:flex}
   .dark-mode-toggle{font-size:12px;padding:4px 8px}
 }
 
