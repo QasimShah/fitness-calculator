@@ -33,6 +33,59 @@
   });
   window.addEventListener('load', function(){ try { showLoading(false); } catch(_){} });
 
+  // Mobile menu toggle functionality
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mainNavigation = document.getElementById('main-navigation');
+  const navList = mainNavigation?.querySelector('.nav-list');
+
+  if (mobileMenuToggle && navList) {
+    mobileMenuToggle.addEventListener('click', () => {
+      navList.classList.toggle('mobile-open');
+      const isOpen = navList.classList.contains('mobile-open');
+      mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+      
+      // Animate hamburger icon
+      const hamburgers = mobileMenuToggle.querySelectorAll('.hamburger');
+      if (isOpen) {
+        hamburgers[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        hamburgers[1].style.opacity = '0';
+        hamburgers[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+      } else {
+        hamburgers[0].style.transform = 'none';
+        hamburgers[1].style.opacity = '1';
+        hamburgers[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mainNavigation.contains(e.target) && navList.classList.contains('mobile-open')) {
+        navList.classList.remove('mobile-open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        
+        // Reset hamburger icon
+        const hamburgers = mobileMenuToggle.querySelectorAll('.hamburger');
+        hamburgers[0].style.transform = 'none';
+        hamburgers[1].style.opacity = '1';
+        hamburgers[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile menu when window is resized to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navList.classList.contains('mobile-open')) {
+        navList.classList.remove('mobile-open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        
+        // Reset hamburger icon
+        const hamburgers = mobileMenuToggle.querySelectorAll('.hamburger');
+        hamburgers[0].style.transform = 'none';
+        hamburgers[1].style.opacity = '1';
+        hamburgers[2].style.transform = 'none';
+      }
+    });
+  }
+
   // Dark mode toggle functionality
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   const currentTheme = localStorage.getItem('theme') || 'light';
