@@ -38,11 +38,20 @@
   const mainNavigation = document.getElementById('main-navigation');
   const navList = mainNavigation?.querySelector('.nav-list');
 
+  console.log('Mobile menu elements:', { mobileMenuToggle, mainNavigation, navList });
+
   if (mobileMenuToggle && navList) {
-    mobileMenuToggle.addEventListener('click', () => {
+    console.log('Adding mobile menu event listener');
+    mobileMenuToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Mobile menu clicked');
+      
       navList.classList.toggle('mobile-open');
       const isOpen = navList.classList.contains('mobile-open');
       mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+      
+      console.log('Menu is now:', isOpen ? 'open' : 'closed');
       
       // Animate hamburger icon
       const hamburgers = mobileMenuToggle.querySelectorAll('.hamburger');
@@ -671,6 +680,46 @@
     tips.className = 'workout tips';
     tips.innerHTML = `<div class="meta">💡 Tips: Use controlled tempo, full range of motion, and log your progression weekly.</div>`;
     workoutPlanEl.appendChild(tips);
+
+    // Equipment recommendations integration
+    const eqBtn = document.createElement('button');
+    eqBtn.className = 'eq-button';
+    eqBtn.type = 'button';
+    eqBtn.textContent = '🏋️ Get Equipment Recommendations';
+    workoutPlanEl.appendChild(eqBtn);
+
+    function ensureEquipmentAssetsLoaded(done){
+      if (window.EquipmentUI && window.EquipmentRecommender && window.EquipmentDB){ done(); return; }
+      // Load CSS once
+      if (!document.getElementById('eq-css')){
+        const link = document.createElement('link');
+        link.id = 'eq-css';
+        link.rel = 'stylesheet';
+        link.href = 'equipment-styles.css';
+        document.head.appendChild(link);
+      }
+      // Load scripts sequentially
+      function add(src, next){ const s=document.createElement('script'); s.src=src; s.defer=true; s.onload=()=> next && next(); document.body.appendChild(s); }
+      add('scripts/equipment-data.js', ()=> add('scripts/equipment-recommendations.js', ()=> add('scripts/equipment-ui.js', ()=> done())));
+    }
+
+    eqBtn.addEventListener('click', function(){
+      try { gtag && gtag('event','equipment_button_click'); } catch(_e){}
+      ensureEquipmentAssetsLoaded(function(){
+        // Collect basic user inputs from the form
+        const ageEl = document.getElementById('age');
+        const genderHidden = document.getElementById('gender-hidden');
+        const activityEl = document.getElementById('activity');
+        const goalEl = document.getElementById('goal');
+        const userInputs = {
+          age: ageEl ? Number(ageEl.value || 0) : undefined,
+          gender: genderHidden ? genderHidden.value : undefined,
+          activity: activityEl ? activityEl.value : undefined,
+          goal: goalEl ? goalEl.value : undefined
+        };
+        window.EquipmentUI.mountRecommendations({ workoutPlan: plan, userInputs });
+      });
+    });
   }
 
   renderHeightInputs();
