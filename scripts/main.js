@@ -873,6 +873,57 @@
     });
   }
 
+  // Hardcoded data for Google AdSense approval - auto-populate form on page load
+  function populateFormWithDemoData() {
+    // Set age
+    const ageInput = document.getElementById('age');
+    if (ageInput) ageInput.value = '28';
+    
+    // Set gender to male
+    const genderHidden = document.getElementById('gender-hidden');
+    const genderSelected = document.getElementById('gender-selected');
+    if (genderHidden) genderHidden.value = 'male';
+    if (genderSelected) genderSelected.textContent = 'Male';
+    
+    // Set height to 175 cm
+    const heightValue = document.getElementById('height-value');
+    if (heightValue) heightValue.value = '175';
+    
+    // Set weight to 75 kg
+    const weightValue = document.getElementById('weight-value');
+    if (weightValue) weightValue.value = '75';
+    
+    // Set activity level to moderate
+    const activityHidden = document.getElementById('activity');
+    const activitySelected = document.getElementById('activity-selected');
+    if (activityHidden) activityHidden.value = 'moderate';
+    if (activitySelected) activitySelected.textContent = 'Moderate (3–5 days/week)';
+    
+    // Set goal to lose weight
+    const goalHidden = document.getElementById('goal');
+    const goalSelected = document.getElementById('goal-selected');
+    if (goalHidden) goalHidden.value = 'lose_weight';
+    if (goalSelected) goalSelected.textContent = 'Lose Weight';
+    
+    // Set diet to regular
+    const dietHidden = document.getElementById('diet');
+    const dietSelected = document.getElementById('diet-selected');
+    if (dietHidden) dietHidden.value = 'regular';
+    if (dietSelected) dietSelected.textContent = 'Regular';
+    
+    // Auto-submit the form after a short delay
+    setTimeout(() => {
+      if (form) {
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+    }, 500);
+  }
+
+  // Run the demo data population after page loads
+  window.addEventListener('load', () => {
+    setTimeout(populateFormWithDemoData, 300);
+  });
+
 
 })();
 
